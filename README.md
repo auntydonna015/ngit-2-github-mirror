@@ -22,14 +22,26 @@ Ok, so first things first. Get git and curl on your terminal (or just Git Bash o
 curl -fsSL https://ngit.dev/install.sh | bash
 ```
 
-You know it worked when you see: "Installation complete! Both binaries verified successfully."
+You know it worked when you see: "Installed ngit v3.0.1". If it also warns that ngit isn't on your PATH, run the `export PATH=...` line it prints, and add that same line to your `~/.zshrc` so it sticks.
 
 **2. Get your nostr remote signer.**
 
-First off, I don't know who needs to hear this but: never paste your nsec anywhere! Use [nak](https://github.com/fiatjaf/nak) here as it's perfect for working on the terminal. If you use `nak key encrypt`, it will lock your key behind a password, and save the output as `you.ncryptsec`. After that you can start a bunker, and just make sure that you leave it running, step 3 needs it:
+First off, I don't know who needs to hear this but: never paste your nsec anywhere! Use [nak](https://github.com/fiatjaf/nak) here as it's perfect for working on the terminal. Install it with its one-liner:
 
 ```
-nak bunker --sec "$(cat you.ncryptsec)" --profile you wss://nos.lol
+curl -sSL https://raw.githubusercontent.com/fiatjaf/nak/master/install.sh | sh
+```
+
+Then lock your key behind a password. This asks for your nsec and a new password without showing them or saving them in your shell history, and saves the result as `you.ncryptsec` in your home folder, outside your repository:
+
+```
+read -s "NSEC?your nsec: "; echo; read -s "PW?new password: "; echo; nak key encrypt "$NSEC" "$PW" > ~/you.ncryptsec; unset NSEC PW
+```
+
+After that you can start a bunker, and just make sure that you leave it running, step 3 needs it:
+
+```
+nak bunker --sec "$(cat ~/you.ncryptsec)" --profile you wss://nos.lol
 ```
 
 It worked when nak prints a `bunker://` address. Make sure to check that the printed npub is yours.
@@ -62,7 +74,7 @@ Swap in your GitHub URL, the `https://github.com/<user>/<repo>.git` address from
 
 `-d` accepts the defaults.
 
-It worked when you see "share your repository:". ngit pushes your code to the new servers right away and repoints `origin` at the nostr URL (your old GitHub remote is still there, now called `github`).
+It worked when you see "share your repository:". A couple of relays failing along the way is normal. ngit pushes your code to the new servers right away and repoints `origin` at the nostr URL (your old GitHub remote is still there, now called `github`).
 
 Now, one ordinary `git push` feeds both GitHub and the nostr servers.
 
