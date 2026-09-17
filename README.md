@@ -16,7 +16,7 @@ Ok, so first things first. Get git and curl on your terminal (on Windows, use WS
 
 No nostr account yet? Create your key at [nstart.me](https://nstart.me/en) first.
 
-Before your first push, make a [personal access token](https://github.com/settings/personal-access-tokens/new) for just this repository (pick it under Repository access) with Contents set to Read and write, and keep it in your password manager. GitHub may ask for it again on later pushes, and the push fails if the `Password:` prompt sits there too long.
+Before your first push, make a [personal access token](https://github.com/settings/personal-access-tokens/new) for just this repository with Contents set to Read and write, and keep it in your password manager. GitHub may ask for it again on later pushes, and the push fails if the `Password:` prompt sits there too long.
 
 ngit and nak both install into `~/.local/bin`, so put that on your PATH first (on Linux or WSL, use `~/.bashrc` instead of `~/.zshrc`):
 
@@ -106,7 +106,7 @@ It worked when you see "share your repository:". A couple of relays failing alon
 
 ![Announcing the repository](screenshots/06-init.png)
 
-Now, whenever you commit, one ordinary `git push` feeds both GitHub and the nostr servers. If GitHub asks for a username and password (a `failed over ssh` line just before that is fine, it tries https next), use your GitHub username and that token, not your GitHub password. Careful with that token: copy it only when you're at the `Password:` prompt, and paste it right there. If the GitHub part still fails, `ngit sync` catches GitHub up.
+Now, whenever you commit, one ordinary `git push` feeds both GitHub and the nostr servers. If GitHub asks for a username and password (a `failed over ssh` line just before that is fine, it tries https next), use your GitHub username and your GitHub personal access token, not your GitHub password. Careful with that token: copy it only when you're at the `Password:` prompt, and paste it right there. If the GitHub part still fails, `ngit sync` catches GitHub up.
 
 ![One git push updating GitHub and both nostr servers](screenshots/07-push.png)
 
