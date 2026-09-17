@@ -76,7 +76,7 @@ Swap in your GitHub URL, the `https://github.com/<user>/<repo>.git` address from
 
 It worked when you see "share your repository:". A couple of relays failing along the way is normal. ngit pushes your code to the new servers right away and repoints `origin` at the nostr URL (your old GitHub remote is still there, now called `github`).
 
-Now, one ordinary `git push` feeds both GitHub and the nostr servers.
+Now, one ordinary `git push` feeds both GitHub and the nostr servers. If GitHub asks for a username and password, use your GitHub username and a [personal access token](https://github.com/settings/personal-access-tokens/new) with Contents set to Read and write, not your GitHub password.
 
 Thank you for reading this far, please consider mirroring one of your repositories today and [donating to OpenSats](https://opensats.org/donate).
 
