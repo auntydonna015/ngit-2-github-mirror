@@ -14,6 +14,10 @@ Now let's go.
 
 Ok, so first things first. Get git and curl on your terminal (on Windows, use WSL) and make sure you're inside the folder of the repository that you want to mirror (the mirror is public, even if the GitHub repository isn't).
 
+No nostr account yet? Create your key at [nstart.me](https://nstart.me/en) first.
+
+Before your first push, make a [personal access token](https://github.com/settings/personal-access-tokens/new) for just this repository (pick it under Repository access) with Contents set to Read and write, and keep it in your password manager. GitHub may ask for it again on later pushes, and the push fails if the `Password:` prompt sits there too long.
+
 ngit and nak both install into `~/.local/bin`, so put that on your PATH first (on Linux or WSL, use `~/.bashrc` instead of `~/.zshrc`):
 
 ```
@@ -41,8 +45,6 @@ curl -sSL https://raw.githubusercontent.com/fiatjaf/nak/master/install.sh | sh
 ```
 
 ![Installing nak](screenshots/02-install-nak.png)
-
-No nostr account yet? Create your key at [nstart.me](https://nstart.me/en) first.
 
 Then lock your key behind a password. This asks for your nsec and a new password without showing them or saving them in your shell history, and saves the result as `you.ncryptsec` in your home folder, outside your repository:
 
@@ -103,8 +105,6 @@ ngit init --name your-project --additional-clone https://github.com/you/your-pro
 It worked when you see "share your repository:". A couple of relays failing along the way is normal. ngit pushes your code to the new servers right away and repoints `origin` at the nostr URL (your old GitHub remote is still there, now called `github`).
 
 ![Announcing the repository](screenshots/06-init.png)
-
-Before your first push, make a [personal access token](https://github.com/settings/personal-access-tokens/new) for just this repository (pick it under Repository access) with Contents set to Read and write, and keep it in your password manager. GitHub may ask for it again on later pushes, and the push fails if the `Password:` prompt sits there too long.
 
 Now, whenever you commit, one ordinary `git push` feeds both GitHub and the nostr servers. If GitHub asks for a username and password (a `failed over ssh` line just before that is fine, it tries https next), use your GitHub username and that token, not your GitHub password. Careful with that token: copy it only when you're at the `Password:` prompt, and paste it right there. If the GitHub part still fails, `ngit sync` catches GitHub up.
 
