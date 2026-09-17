@@ -6,7 +6,7 @@ Quick cheat-sheet:
 * [Git Relays Authorized via Signed-Nostr Proofs (GRASP)](https://gitworkshop.dev/npub15qydau2hjma6ngxkl2cyar74wzyjshvl65za5k5rl69264ar2exs5cyejr/relay.ngit.dev/grasp): hosts the repositories
 * [GitWorkshop.dev](https://gitworkshop.dev/): the first web client
 * Git: stores the code, every version of it
-* Nostr: carries the signatures, issues, PRs, and comments
+* nostr: carries the signatures, issues, PRs, and comments
 
 Now let's go.
 
@@ -38,7 +38,7 @@ You know it worked when you see: "Installed ngit v3.0.1".
 
 **2. Get your nostr remote signer.**
 
-First off, I don't know who needs to hear this but: never paste your nsec anywhere! Use [nak](https://github.com/fiatjaf/nak) here as it's perfect for working on the terminal. Install it with its one-liner:
+First off, I don't know who needs to hear this but: never paste your nsec anywhere! Use [nak](https://opensats.org/projects/nak) here, as it's perfect for working on the terminal. Install it with its one-liner:
 
 ```
 curl -sSL https://raw.githubusercontent.com/fiatjaf/nak/master/install.sh | sh
@@ -70,7 +70,7 @@ It worked when nak asks for your password and then prints a `bunker://` address.
 
 ![nak bunker running](screenshots/04-bunker.png)
 
-**3. Sign this repository in from a second terminal, again inside your project's folder.**
+**3. Sign this repository from a second terminal, again inside your project's folder.**
 
 If you're paranoid, don't ever use `--nsec`, because otherwise your private key gets written into your shell history in plain text. That's the nice thing with nak's bunker: your key never leaves that first terminal and ngit only ever receives signatures.
 
@@ -88,7 +88,7 @@ It worked when ngit answers: "logged in to this local repository as" followed by
 
 If it just sits at `connecting to remote signer...`, press Ctrl+C in both terminals, start the bunker again and log in with the new address it prints (the code at the end changes every restart). If `ngit init` or a `git push` ever hangs, Ctrl+C it, restart the bunker and run it again, no new login needed.
 
-**4. [Announce the repository](https://ngit.dev/quickstart)**
+**4. [Announce the repository](https://ngit.dev/repositories/mirroring)**
 
 Keeping GitHub among its servers is what makes it a mirror. Swap in your GitHub URL, the `https://github.com/<user>/<repo>.git` address from GitHub's Code button, and your project's name, then run:
 
@@ -98,7 +98,7 @@ ngit init --name your-project --additional-clone https://github.com/you/your-pro
 
 `--additional-clone` is what keeps GitHub in the loop.
 
-`-g` adds [free community servers](https://ngit.dev/grasp/).
+`-g` adds [free community servers](https://gitnostr.com).
 
 `-d` accepts the defaults.
 
@@ -109,6 +109,8 @@ It worked when you see "share your repository:". A couple of relays failing alon
 Now, whenever you commit, one ordinary `git push` feeds both GitHub and the nostr servers. If GitHub asks for a username and password (a `failed over ssh` line just before that is fine, it tries https next), use your GitHub username and that token, not your GitHub password. Careful with that token: copy it only when you're at the `Password:` prompt, and paste it right there. If the GitHub part still fails, `ngit sync` catches GitHub up.
 
 ![One git push updating GitHub and both nostr servers](screenshots/07-push.png)
+
+---
 
 Thank you for reading this far, please consider mirroring one of your repositories today and [donating to OpenSats](https://opensats.org/donate).
 
